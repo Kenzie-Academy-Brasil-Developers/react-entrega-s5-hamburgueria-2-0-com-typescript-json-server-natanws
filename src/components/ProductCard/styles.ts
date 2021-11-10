@@ -10,6 +10,24 @@ export const Card = styled.div`
   align-items: center;
   margin: 20px 10px;
   overflow: hidden;
+  button {
+    background: var(--grey-100);
+    color: white;
+    height: 40px;
+    width: 130px;
+    border-radius: 8px;
+  }
+  &:hover {
+    border-color: var(--color-primary);
+
+    button {
+      background-color: var(--color-primary);
+
+      &:active {
+        background-color: var(--color-primary-50);
+      }
+    }
+  }
 
   .imageContainer {
     background: var(--grey-0);
@@ -45,13 +63,6 @@ export const Card = styled.div`
       color: var(--color-primary);
       font: var(--Body-600);
       width: 260px;
-    }
-    button {
-      background: var(--color-primary);
-      color: white;
-      height: 40px;
-      width: 130px;
-      border-radius: 8px;
     }
   }
 `;
