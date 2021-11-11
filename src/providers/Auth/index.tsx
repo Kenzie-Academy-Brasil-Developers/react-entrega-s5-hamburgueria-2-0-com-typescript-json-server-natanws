@@ -22,10 +22,6 @@ export const AuthProvider = ({ children }: AuthProps) => {
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  if (isLoggedIn === false) {
-    setIsLoggedIn(true);
-  }
-
   return (
     <AuthContext.Provider
       value={{ token, setToken, isLoggedIn, setIsLoggedIn }}

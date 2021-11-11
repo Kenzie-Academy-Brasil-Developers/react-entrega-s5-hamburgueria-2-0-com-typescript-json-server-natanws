@@ -1,7 +1,12 @@
+import { BKIntro } from "../../components/BKIntro";
+import { SignupForm } from "../../components/SignupForm";
+import { SignupContainer } from "./styles";
+
 export const Signup = () => {
   return (
-    <div>
-      <h2>Signup</h2>
-    </div>
+    <SignupContainer>
+      <BKIntro />
+      <SignupForm />
+    </SignupContainer>
   );
 };

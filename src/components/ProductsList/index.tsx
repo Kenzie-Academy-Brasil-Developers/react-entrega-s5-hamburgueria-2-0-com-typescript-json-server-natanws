@@ -1,19 +1,23 @@
 import { ProductCard } from "../ProductCard";
 import { Container } from "./styles";
-import TempProduct from "../../assets/products/big-kenzie.png";
+import { useProducts } from "../../providers/Products";
 
 export const ProductsList = () => {
+  const { products } = useProducts();
   return (
     <Container>
-      <ProductCard
-        image={TempProduct}
-        name="Big Kenzie"
-        price={new Intl.NumberFormat("pt-br", {
-          style: "currency",
-          currency: "BRL",
-        }).format(18.0)}
-        type="Sanduíches"
-      />
+      {products.map((product, index) => (
+        <ProductCard
+          key={index}
+          image={product.image}
+          name={product.name}
+          price={new Intl.NumberFormat("pt-br", {
+            style: "currency",
+            currency: "BRL",
+          }).format(product.price)}
+          type={product.type}
+        />
+      ))}
     </Container>
   );
 };
