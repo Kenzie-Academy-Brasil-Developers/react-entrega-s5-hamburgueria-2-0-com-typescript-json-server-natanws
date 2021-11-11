@@ -13,6 +13,7 @@ export const MenuHeader = () => {
   const { isLoggedIn, setIsLoggedIn } = useAuth();
   const logOut = () => {
     setIsLoggedIn(false);
+    localStorage.clear();
     history.push("/");
   };
 

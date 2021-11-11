@@ -5,12 +5,14 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { api } from "../../services/api";
+import { useAuth } from "../../providers/Auth";
 
 export const SignupForm = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
   const history = useHistory();
 
   const goToLogin = () => {
@@ -40,10 +42,18 @@ export const SignupForm = () => {
 
   const createNewUser = ({ name, password, email }: any) => {
     const data = { name, password, email };
-    api.post("/users", data).then((response: any) => {
-      history.push("/");
-    });
+    api
+      .post("/users", data)
+      .then((response: any) => {
+        history.push("/");
+      })
+      .catch((err) => console.log(err));
   };
+
+  if (isLoggedIn || localStorage.getItem("@BK")) {
+    setIsLoggedIn(true);
+    history.push("/");
+  }
 
   return (
     <FormContainer>

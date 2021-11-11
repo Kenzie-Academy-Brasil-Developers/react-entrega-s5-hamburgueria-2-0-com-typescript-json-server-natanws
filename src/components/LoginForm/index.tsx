@@ -5,17 +5,19 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { api } from "../../services/api";
+import { useAuth } from "../../providers/Auth";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
   const history = useHistory();
   const goToSignup = () => {
     history.push("/signup");
   };
 
   const schema = yup.object().shape({
-    username: yup.string().required("Campo Obrigatório"),
+    email: yup.string().required("Campo Obrigatório"),
     password: yup.string().required("Campo Obrigatório"),
   });
 
@@ -23,15 +25,25 @@ export const LoginForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const loginUser = (data: any) => {
-    api.post("/users", data).then((response: any) => {
-      const { access } = response.data;
-      localStorage.setItem("@BK", access);
-      history.push("/");
-    });
+    api
+      .post("/login", data)
+      .then((response: any) => {
+        localStorage.setItem("@BK", JSON.stringify(response.data.accessToken));
+        setIsLoggedIn(true);
+        history.push("/");
+      })
+      .catch((err) => console.log(err));
   };
+
+  if (isLoggedIn || localStorage.getItem("@BK")) {
+    setIsLoggedIn(true);
+    history.push("/");
+  }
 
   return (
     <FormContainer>

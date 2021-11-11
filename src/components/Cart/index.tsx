@@ -3,6 +3,7 @@ import { Container } from "./styles";
 
 export const Cart = () => {
   const { showCart, hideCart } = useCart();
+  const { cart } = useCart();
 
   return (
     <Container>
@@ -13,8 +14,24 @@ export const Cart = () => {
             <button onClick={showCart}>X</button>
           </div>
           <div className="cartProducts">
-            <h3>Seu carrinho está vazio</h3>
-            <span>Adicione itens</span>
+            {cart.length === 0 ? (
+              <>
+                <h3>Seu carrinho está vazio</h3>
+                <span>Adicione itens</span>
+              </>
+            ) : (
+              cart.map((product, index) => (
+                <div key={index}>
+                  <img src={product.image} alt={product.name} />
+                  <div>
+                    <h3>{product.name}</h3>
+                    {/* <div>
+
+                  </div> */}
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>

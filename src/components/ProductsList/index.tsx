@@ -11,10 +11,7 @@ export const ProductsList = () => {
           key={index}
           image={product.image}
           name={product.name}
-          price={new Intl.NumberFormat("pt-br", {
-            style: "currency",
-            currency: "BRL",
-          }).format(product.price)}
+          price={product.price}
           type={product.type}
         />
       ))}

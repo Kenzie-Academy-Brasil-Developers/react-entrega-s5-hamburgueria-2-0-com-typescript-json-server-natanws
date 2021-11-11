@@ -16,9 +16,7 @@ export const AuthContext = createContext<AuthProviderData>(
 );
 
 export const AuthProvider = ({ children }: AuthProps) => {
-  const [token, setToken] = useState<string>(
-    localStorage.getItem("@KenzieBurger") || ""
-  );
+  const [token, setToken] = useState<string>(localStorage.getItem("@BK") || "");
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
